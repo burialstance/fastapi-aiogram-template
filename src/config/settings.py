@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 SRC_DIR = Path(__file__).parent.parent
 ENV_FILE = SRC_DIR.parent.joinpath('.env')
@@ -28,5 +28,11 @@ class DatabaseSettings(BaseEnvSettings):
     echo: bool = True
 
 
+class TelegramSettings(BaseEnvSettings):
+    bot_token: str
+    bot_admin_ids: list | None = None
+
+
 app = AppSettings(_env_prefix='APP_')
 db = DatabaseSettings(_env_prefix='DB_')
+telegram = TelegramSettings(_env_prefix='TELEGRAM_')
